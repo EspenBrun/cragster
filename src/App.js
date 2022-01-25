@@ -1,16 +1,11 @@
-
-import { Header, Footer, Espen } from './components/'
-
-function lol() {
-  return 2+2
-}
-
+import { Header, Footer, Espen, Forecast } from './components/'
 
 function App() {
   return (
   <>
     <Header/>
     <Espen/>
+    {Forecast ("Fløien", "60", "5", "316")}
     <Footer/>
   </>
   );
