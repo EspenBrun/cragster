@@ -1,10 +1,10 @@
-
-import { Header, Footer } from './components/'
+import { Header, BKK, Footer } from './components/'
 
 function App() {
   return (
   <>
     <Header/>
+    {BKK ("31")}
     <Footer/>
   </>
   );
