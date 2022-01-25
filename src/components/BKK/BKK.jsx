@@ -15,8 +15,7 @@ const LocationName = styled.h4`
   width: 40%;
 `;
 function BKK(cragId) {
-  const [weatherDataList, setWeatherDataList] = useState(null);
-  const [showAdvancedForecast, setShowAdvancedForecast] = useState(false);
+  const [cragTitle, setCragTitle] = useState(null);
   
   useEffect(()=>{
     const url = 'https://cors-anywhere.herokuapp.com/https://ute.bergenklatreklubb.no/forere/cragdatabase/felt.php?Felt_id=' + cragId;
@@ -28,8 +27,13 @@ function BKK(cragId) {
     fetch(url, requestOptions)
       .then(response => response.text())
       .then(function(result) {
-        setWeatherDataList(result);
-        return console.log(result);
+        let parser = new DOMParser();
+        const doc = parser.parseFromString(result, 'text/html');
+        const titleTag = doc.getElementsByTagName('title')
+        const title = titleTag[0].innerHTML
+        setCragTitle(title);
+        return console.log(title);
+        // return title
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
@@ -38,7 +42,7 @@ function BKK(cragId) {
     <>
       <p>Bruker en proxy for å få data fra bergenklatreklubb. Her er link <a href="https://github.com/Rob--W/cors-anywhere/">https://github.com/Rob--W/cors-anywhere/</a>, du må spørre om access for at det funker fra din maksin!</p>
       <ListItem>
-        <LocationName> {cragId} </LocationName>
+        <LocationName> {cragId} {cragTitle} </LocationName>
       </ListItem>
     </>
   );
