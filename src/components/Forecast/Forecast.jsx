@@ -1,6 +1,10 @@
 import React, {useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+// Components
+import { CollapsedForecast } from './';
+import { ExpandedForecast } from './';
+
 const ListItem = styled.div`
   background-color: #2F333C;
   border-radius: 0.5rem;
@@ -30,9 +34,19 @@ function Forecast(name, latitude, longitude, altitude) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
+  if (!weatherDataList) 
   return (
     <ListItem>
       <LocationName> {name} </LocationName>
+    </ListItem>
+  );
+
+  return (
+    <ListItem onClick={() => {
+      setShowAdvancedForecast(!showAdvancedForecast);
+      }}>
+      {!showAdvancedForecast && CollapsedForecast(name, weatherDataList)}
+      {showAdvancedForecast && ExpandedForecast(name, weatherDataList)}
     </ListItem>
   );
 }
