@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 
-const NavBarContainer = styled.div`
+const HeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -10,13 +10,13 @@ const NavBarContainer = styled.div`
   padding: 2rem;
 `;
 
-const Profile = styled.div`
+const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 1rem;
 `;
 
-const Name = styled.p`
+const HeaderText = styled.p`
   color: #1499ff;
   font-size: 1.5em;
   margin-block-start: 0em;
@@ -27,7 +27,7 @@ const Name = styled.p`
   }
 `;
 
-const Location = styled.p`
+const SubHeaderText = styled.p`
   color: #012541;
   margin-block-start: 0em;
   margin-block-end: 0em;
@@ -35,12 +35,12 @@ const Location = styled.p`
 
 const Header = () => { 
   return (
-  <NavBarContainer>
-    <Profile>
-      <Name> Cragster </Name>
-      <Location> Cool text about crags here </Location>
-    </Profile>
-  </NavBarContainer>
+  <HeaderContainer>
+    <TextWrapper>
+      <HeaderText> Cragster </HeaderText>
+      <SubHeaderText> Cool text about crags here </SubHeaderText>
+    </TextWrapper>
+  </HeaderContainer>
   );
 };
 
