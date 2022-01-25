@@ -1,7 +1,7 @@
 import React from 'react';
 
 function lol() {
-  2+2
+  return 2+2
 }
 const Espen = () => { 
  console.log("Dette vil logge til consollen i browseren")
