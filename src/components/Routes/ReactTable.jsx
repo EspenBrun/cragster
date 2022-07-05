@@ -1,5 +1,6 @@
 import React from 'react';
-import { useTable } from 'react-table'
+import { useTable, useFilters, useGlobalFilter, useAsyncDebounce } from 'react-table'
+
 
 
 
