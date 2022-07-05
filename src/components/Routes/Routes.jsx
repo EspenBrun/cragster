@@ -1,6 +1,5 @@
 import React, {useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
-import ReactTable from './ReactTable';
 import { useTable, useFilters, useGlobalFilter, useAsyncDebounce } from 'react-table'
 
 const ListItem = styled.div`
@@ -244,8 +243,6 @@ function Table({ columns, data }) {
     </>
   )
 }
-
-
 
 function Routes(grade) {
   grade = grade.replace('+', '%2B')
