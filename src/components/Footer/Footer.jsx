@@ -14,7 +14,7 @@ const Text = styled.p`
 
 const Footer = () => { 
   return (
-    <Text> Read more on <a style= {{color: '#7B7E83'}} href="https://github.com/MathiasNI/cragster">GitHub</a></Text>
+    <Text> Read more on <a style= {{color: '#7B7E83'}} href="https://github.com/EspenBrun/cragster">GitHub</a></Text>
   );
 };
 
