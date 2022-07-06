@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/cragster/static/css/main.e6c13ad2.css",
-    "main.js": "/cragster/static/js/main.06d15d33.js",
+    "main.js": "/cragster/static/js/main.dc528206.js",
     "static/js/787.a2ed078c.chunk.js": "/cragster/static/js/787.a2ed078c.chunk.js",
     "index.html": "/cragster/index.html",
     "main.e6c13ad2.css.map": "/cragster/static/css/main.e6c13ad2.css.map",
-    "main.06d15d33.js.map": "/cragster/static/js/main.06d15d33.js.map",
+    "main.dc528206.js.map": "/cragster/static/js/main.dc528206.js.map",
     "787.a2ed078c.chunk.js.map": "/cragster/static/js/787.a2ed078c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.06d15d33.js"
+    "static/js/main.dc528206.js"
   ]
 }
