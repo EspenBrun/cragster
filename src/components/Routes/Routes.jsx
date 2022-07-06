@@ -1,6 +1,7 @@
-import React, {useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { useTable, useFilters, useGlobalFilter, useAsyncDebounce } from 'react-table'
+import { matchSorter } from 'match-sorter'
 
 const ListItem = styled.div`
   background-color: #2F333C;
@@ -16,45 +17,13 @@ const LocationName = styled.h4`
   width: 40%;
 `;
 
-// This is a custom filter UI for selecting
-// a unique option from a list
-function SelectColumnFilter({
-  column: { filterValue, setFilter, preFilteredRows, id },
-}) {
-  // Calculate the options for filtering
-  // using the preFilteredRows
-  const options = React.useMemo(() => {
-    const options = new Set()
-    preFilteredRows.forEach(row => {
-      options.add(row.values[id])
-    })
-    return [...options.values()]
-  }, [id, preFilteredRows])
-
-  // Render a multi-select box
-  return (
-    <select
-      value={filterValue}
-      onChange={e => {
-        setFilter(e.target.value || undefined)
-      }}
-    >
-      <option value="">All</option>
-      {options.map((option, i) => (
-        <option key={i} value={option}>
-          {option}
-        </option>
-      ))}
-    </select>
-  )
-}
-
 function parseColumns(){
   return (
     [
       {
         Header: 'Felt',
         accessor: 'col0',
+        filter: 'fuzzyText',
       },
       {
         Header: '*',
@@ -65,14 +34,17 @@ function parseColumns(){
       {
         Header: 'Navn',
         accessor: 'col2',
+        filter: 'fuzzyText',
       },
       {
         Header: 'Bestiger',
         accessor: 'col3',
+        filter: 'fuzzyText',
       },
       {
         Header: 'År',
         accessor: 'col4',
+        filter: 'fuzzyText',
       },
       {
         Header: 'Sikring',
@@ -112,23 +84,6 @@ function parseData(response){
 }
 
 // Define a default UI for filtering
-function DefaultColumnFilter({
-  column: { filterValue, preFilteredRows, setFilter },
-}) {
-  const count = preFilteredRows.length
-
-  return (
-    <input
-      value={filterValue || ''}
-      onChange={e => {
-        setFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
-      }}
-      placeholder={`Search ${count} records...`}
-    />
-  )
-}
-
-// Define a default UI for filtering
 function GlobalFilter({
   preGlobalFilteredRows,
   globalFilter,
@@ -159,8 +114,69 @@ function GlobalFilter({
   )
 }
 
+// Define a default UI for filtering
+function DefaultColumnFilter({
+  column: { filterValue, preFilteredRows, setFilter },
+}) {
+  const count = preFilteredRows.length
+
+  return (
+    <input
+      value={filterValue || ''}
+      onChange={e => {
+        setFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
+      }}
+      placeholder={`Search ${count} records...`}
+    />
+  )
+}
+
+// This is a custom filter UI for selecting
+// a unique option from a list
+function SelectColumnFilter({
+  column: { filterValue, setFilter, preFilteredRows, id },
+}) {
+  // Calculate the options for filtering
+  // using the preFilteredRows
+  const options = React.useMemo(() => {
+    const options = new Set()
+    preFilteredRows.forEach(row => {
+      options.add(row.values[id])
+    })
+    return [...options.values()]
+  }, [id, preFilteredRows])
+
+  // Render a multi-select box
+  return (
+    <select
+      value={filterValue}
+      onChange={e => {
+        setFilter(e.target.value || undefined)
+      }}
+    >
+      <option value="">All</option>
+      {options.map((option, i) => (
+        <option key={i} value={option}>
+          {option}
+        </option>
+      ))}
+    </select>
+  )
+}
+
+function fuzzyTextFilterFn(rows, id, filterValue) {
+  return matchSorter(rows, filterValue, { keys: [row => row.values[id]] })
+}
+
 // Our table component
 function Table({ columns, data }) {
+  const filterTypes = React.useMemo(
+    () => ({
+      // Add a new fuzzyTextFilterFn filter type.
+      fuzzyText: fuzzyTextFilterFn,
+    }),
+    []
+  )
 
   const defaultColumn = React.useMemo(
     () => ({
@@ -185,7 +201,7 @@ function Table({ columns, data }) {
       columns,
       data,
       defaultColumn, // Be sure to pass the defaultColumn option
-      // filterTypes,
+      filterTypes,
     },
     useFilters, // useFilters!
     useGlobalFilter // useGlobalFilter!
