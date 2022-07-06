@@ -248,10 +248,10 @@ function Routes(grade) {
   grade = grade.replace('+', '%2B')
   grade = grade.replace('/', '%2F')
   const [response, setResponse] = useState('');
-  
+
   useEffect(()=>{
     if(grade) {
-      const url = 'https://cors-anywhere.herokuapp.com/https://ute.bergenklatreklubb.no/forere/cragdatabase/grad.php?Grad=' + grade;
+      const url = 'https://obscure-lake-19547.herokuapp.com/https://ute.bergenklatreklubb.no/forere/cragdatabase/grad.php?Grad=' + grade;
       const requestOptions = {
         method: 'GET',
         headers: {    

@@ -18,7 +18,7 @@ function BKK(cragId) {
   const [cragTitle, setCragTitle] = useState(null);
   
   useEffect(()=>{
-    const url = 'https://cors-anywhere.herokuapp.com/https://ute.bergenklatreklubb.no/forere/cragdatabase/felt.php?Felt_id=' + cragId;
+    const url = 'https://obscure-lake-19547.herokuapp.com/https://ute.bergenklatreklubb.no/forere/cragdatabase/felt.php?Felt_id=' + cragId;
     const requestOptions = {
       method: 'GET',
       headers: {    
