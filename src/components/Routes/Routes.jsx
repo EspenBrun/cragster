@@ -222,7 +222,7 @@ function Table({ columns, data }) {
           </tr>
         </thead>
         <tbody {...getTableBodyProps()}>
-          {rows.map((row, i) => {
+          {rows.map((row) => {
             prepareRow(row)
             return (
               <tr {...row.getRowProps()}>
@@ -250,22 +250,26 @@ function Routes(grade) {
   const [response, setResponse] = useState('');
   
   useEffect(()=>{
-    const url = 'https://cors-anywhere.herokuapp.com/https://ute.bergenklatreklubb.no/forere/cragdatabase/grad.php?Grad=' + grade;
-    const requestOptions = {
-      method: 'GET',
-      headers: {    
-          'Accept': 'text/html',
-          'Access-Control-Allow-Origin': '*' }}
-    fetch(url, requestOptions)
-      .then(response => response.text())
-      .then(function(result) {
-        setResponse(result);
-        console.log('got result')
-      })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if(grade) {
+      const url = 'https://cors-anywhere.herokuapp.com/https://ute.bergenklatreklubb.no/forere/cragdatabase/grad.php?Grad=' + grade;
+      const requestOptions = {
+        method: 'GET',
+        headers: {    
+            'Accept': 'text/html',
+            'Access-Control-Allow-Origin': '*' }}
+      fetch(url, requestOptions)
+        .then(response => response.text())
+        .then(function(result) {
+          setResponse(result);
+          console.log('got result')
+        })
+    } else {
+      setResponse('')
+    }
+    
     },[grade])
   
-  const columns = useMemo(() => parseColumns(response), [response])
+  const columns = useMemo(() => parseColumns(), [])
   const data = useMemo(() => parseData(response), [response])
 
   return (
