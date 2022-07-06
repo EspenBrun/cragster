@@ -1,3 +1,45 @@
+# Cragster
+## Deploy to github pages
+- `npm install gh-pages`.
+- Add lines to `package.json`:
+
+```json
+// root
+"homepage": "https://espenbrun.github.io/cragster",
+
+// scripts
+"predeploy": "npm run build",
+"deploy": "gh-pages -d build",
+```
+
+- Deploy with `npm run deploy`.
+- See https://dev.to/yuribenjamin/how-to-deploy-react-app-in-github-pages-2a1f for video.
+
+## Cors
+- Can't make a request from the browser to bergen klatreklubb, so we need to send through a cors proxy.
+- For development it is quickest to a temporary one provided by Heroku:
+  - https://cors-anywhere.herokuapp.com/
+  - Documentation: [cors-anywhere](https://github.com/Rob--W/cors-anywhere/)
+- To host your own `cors-anywhere`:
+  - Create a free user on Heroku.
+
+```bash
+brew tap heroku/brew && brew install heroku
+git clone https://github.com/Rob--W/cors-anywhere.git
+cd cors-anywhere/
+npm install
+heroku create
+git push heroku master
+```
+
+- Heroku dashboard: https://dashboard.heroku.com/apps/.
+- Go to app and copyu the link. See the documentation for cors-anywhere for usage.
+
+## Packages
+### react-table
+- [react-table](https://tanstack.com/table/v8/docs/guide/introduction).
+- [React table with filtering](https://codesandbox.io/s/github/tannerlinsley/react-table/tree/v7/examples/filtering?from-embed=&file=/src/App.js).
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
