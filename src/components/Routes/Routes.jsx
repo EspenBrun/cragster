@@ -260,10 +260,16 @@ function Table({ columns, data }) {
   )
 }
 
+const nordhordaland = ['Bolstadøyri','Eventyrveggen','Hetta','Hjellaberget','Hjernemasseveggen','Mostraumen','Perleveggen','Eikedalen','Hjortegryta','Mojavato','Uskedalen']
+function removeNordhordaland(data) {
+  return data.filter(row => !nordhordaland.includes(row.col0))
+}
+
 function Routes(grade) {
   grade = grade.replace('+', '%2B')
   grade = grade.replace('/', '%2F')
   const [response, setResponse] = useState('');
+  const [includeNordhordaland, setIncludeNordhordaland] = useState(false)
 
   useEffect(()=>{
     if(grade) {
@@ -287,13 +293,16 @@ function Routes(grade) {
   
   const columns = useMemo(() => parseColumns(), [])
   const data = useMemo(() => parseData(response), [response])
+  const filteredData = includeNordhordaland ? data : removeNordhordaland(data)
 
   return (
     <>
-      <ListItem>
-        <LocationName>{grade}</LocationName>
-      </ListItem>
-      <Table columns={columns} data={data} />
+      <label>
+        <input type='checkbox' onChange={() => setIncludeNordhordaland(!includeNordhordaland)}/>
+          
+        Include crags in Nordhordaland and Uskedalen
+      </label>
+      <Table columns={columns} data={filteredData} />
     </>
   );
 }
